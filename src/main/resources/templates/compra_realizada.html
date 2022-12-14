@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/layout :: head" xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <header th:replace="layout/layout :: header"></header>
+
+    <div class="container px-5 py-4 mt-5">
+        <div class="card bg-light">
+            <div class="card-header text-bg-success" th:text="'Compra Realizada con exito'"></div>
+            <div class="card-body">
+
+                <ul class="list-group p-2 pb-4 px-5">
+                    <li class="list-group-item">Tu compra <span class="fw-semibold" sec:authentication="name"></span>  ha sido efectuada con exito, puedes volver al inicio o ver tus facturas.</li>
+                </ul>
+
+                <a class="btn btn-light btn-xs" th:href="@{/tienda}">&laquo; Volver</a>
+                <a class="btn btn-danger btn-xs float-end" th:href="@{/perfil/facturas}">Ver mis facturas &raquo;</a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

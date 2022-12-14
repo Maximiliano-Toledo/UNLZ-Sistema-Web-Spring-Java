@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+   <header th:replace="layout/layout :: header"></header>
+
+    <div class="container py-4 mt-5">
+        <div class="card bg-light">
+            <div class="card-header " th:classappend="${verified} ? 'text-bg-success' : 'text-bg-danger'" th:text="${titulo}"></div>
+            <div class="card-body">
+                <span class="fw-semibold" th:if="${verified}">Tú cuenta <span class="fw-bold" th:text="${email}"></span> fue verificada y activada exitosamente, ya puedes intentar iniciar sesión!</span>
+                <span th:unless="${verified}">
+                    El token de verificacion enviado es <span class="fw-semibold">invalido</span> , ya fue <span class="fw-semibold">utilizado</span> o ya <span class="fw-semibold">expiró</span>.
+                </span>
+            </div>
+            <div class="card-body">
+                <a class="btn btn-secondary" th:href="@{/tienda}">Volver al inicio</a>
+                <a th:if="${verified}" class="btn btn-primary float-end" th:href="@{/tienda}">Iniciar sesión</a>
+            </div>
+        </div>
+    </div>
+
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+
+
+</body>
+</html>

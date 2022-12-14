@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <header th:replace="layout/layout :: header"></header>
+
+    <div class="container py-4 mt-5">
+        <div class="card bg-light">
+            <div class="card-header " th:text="${titulo}"></div>
+            <div class="card-body">
+                <form th:action="@{/perfil/cartera}" th:object="${usuario}" method="post">
+                    <div class="form-group p-3">
+                    <label for="Dinero">dinero</label>
+                    <input th:field="*{Dinero}" type="text" class="form-control" id="Dinero" placeholder="Dinero">
+                    <input type="submit" th:value="'Guardar'" class="btn btn-secondary"/>
+
+                  </div>
+                  <div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

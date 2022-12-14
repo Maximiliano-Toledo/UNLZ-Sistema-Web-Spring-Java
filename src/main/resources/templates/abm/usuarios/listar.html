@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${titulo}"></title>
+</head>
+<body>
+
+    <header th:replace="layout/layout :: header"></header>
+
+    <div class="container py-5 my-5 px-4">
+        <div class="card bg-light">
+            <div class="card-header">
+              <h2 th:text="${titulo}">Listado de</h2>
+            </div>
+
+            <div class="card-body">
+
+              <hr>
+                  <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary" th:href="@{/usuarios/crear/}" th:text="'Crear Usuario'">Crear Usuario</a>
+              <hr>
+
+              <div th:if="${usuarios.isEmpty}" class="alert alert-info my-2 p-2 my-3" th:text="'No hay usuarios en la base de datos.'"></div>
+              <table th:if="${!usuarios.isEmpty}" class="table table-striped table-bordered">
+                  <thead>
+                    <tr class="text-center table-dark">
+                        <th sec:authorize="hasRole('ROLE_USER')">ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <!-- <th>Email</th> -->
+                        <th>Creado en...</th>
+                        <th>Ultima actualización</th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')"></th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')"></th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')"></th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="usuario: ${usuarios}">
+                        <td class="d-grid gap-2" sec:authorize="hasRole('ROLE_USER')">
+                          <div class="d-grid gap-2">
+                            <a class="btn btn-primary btn-sm fw-semibold" sec:authorize="hasRole('ROLE_USER')" th:text="${usuario.id}" th:href="@{/usuarios/ver/} + ${usuario.id}"></a>
+                          </div>
+                        </td>
+                        <td th:text="${usuario.nombre}"></td>
+                        <td th:text="${usuario.apellido}"></td>
+                        <!-- <td th:text="${usuario.email}"></td> -->
+                        <td th:text="${usuario.createAt}"></td>
+                        <td th:text="${usuario.updateAt}"></td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            <div class="d-grid gap-2">
+                                <a class="btn btn-primary btn-sm fw-semibold" th:if="${usuario.enabled == false}" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/usuarios/activar/} + ${usuario.id}" th:text="'Activar'">activar</a>
+                                <a class="btn btn-danger btn-sm fw-semibold" th:if="${usuario.enabled == true}" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/usuarios/desactivar/} + ${usuario.id}" th:text="'Desactivar'">activar</a>
+                            </div>
+                        </td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            <div class="d-grid gap-2">
+                                <a class="btn btn-success btn-sm fw-semibold" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/factura/form/} + ${usuario.id}" th:text="'Crear Factura'">Crear Factura</a>
+                            </div>
+                        </td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            <div class="d-grid gap-2">
+                                <a class="btn btn-primary btn-sm fw-semibold" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/usuarios/editar/} + ${usuario.id}" th:text="'Editar'">Editar</a>
+                            </div>
+                        </td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            <div class="d-grid gap-2">
+                                <a class="btn btn-danger btn-sm fw-semibold" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/usuarios/eliminar/} + ${usuario.id}"  th:text="'Eliminar'" onclick="return confirm('Estas seguro que quieres eliminar?')">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                  </tbody>
+              </table>
+
+              <br/>
+
+              <nav th:replace="layout/paginator-nav :: paginator">
+
+              </nav>
+
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

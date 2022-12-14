@@ -1,0 +1,4 @@
+Las clases escritas con la letra I son interfaces que funcionan como contrato
+para los metodos que va a tener nuestra clase service.
+Las clases service (las que estan indicadas con Impl) principalmente
+se conecta a varios repositorios y agrupa su funcionalidad.
