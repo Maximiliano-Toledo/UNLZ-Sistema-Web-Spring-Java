@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}"></title>
+</head>
+<body>
+
+    <header th:replace="layout/layout :: header"></header>
+
+    <div class="container py-4 mt-5">
+        <div class="card bg-light">
+            <div class="card-header" th:text="${titulo}"></div>
+            <div class="card-body">
+
+                <ul class="list-group p-2">
+                    <li class="list-group-item"><span class="fw-semibold">Nombre: </span><span th:text="${articulo.nombre}"></span></li>
+                    <li class="list-group-item"><span class="fw-semibold">Descripcion: </span><span th:text="${articulo.descripcion}"></span></li>
+                    <li class="list-group-item"><span class="fw-semibold">Precio: $</span><span th:text="${articulo.precio}"></span></li>
+                    <li class="list-group-item"><span class="fw-semibold">Stock: </span><span th:text="${articulo.stock}"></span></li>
+                    <li class="list-group-item"><span class="fw-semibold">Fecha de Creacion: </span> <span th:text="${articulo.createAt}"></span></li>
+                    <li class="list-group-item"><span class="fw-semibold">Ultima Actualizacion: </span><span th:text="${articulo.updateAt}"></span></li>
+                    <li class="list-group-item rounded float-end" th:if="${!#strings.isEmpty(articulo.foto)}">
+                        <img class="img-thumbnail rounded mx-auto d-block" style="max-width: 40%;" th:src="@{'/uploads/' + ${articulo.foto}}" alt="${articulo.foto}">
+                    </li>
+
+                </ul>
+
+                <div class="pt-2">
+
+                    <a class="btn btn-light btn-xs" th:href="@{/tienda}">&laquo; Volver</a>
+
+                    <a class="btn btn-primary btn-xs float-end" th:href="@{/articulos/editar/} + ${articulo.id}">Editar &raquo;</a>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header th:replace="layout/layout :: header"></header>
+
+    <div class="container py-4 mt-5">
+        <div class="card bg-light">
+            <div class="card-header" th:text="${titulo}"></div>
+            <div class="card-body">
+
+            <div th:if="${usuario.facturas.isEmpty()}" class="alert alert-success my-2 p-2 my-3" th:text="'No tienes facturas asignadas.'"></div>
+            <div th:if="${!usuario.facturas.isEmpty()}">
+                <table class="table table-bordered table-striped my-4 p-3">
+                    <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Descripcion</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            <th>Ver</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="factura: ${usuario.facturas}">
+                            <td th:text="${factura.id}"></td>
+                            <td th:text="${factura.descripcion}"></td>
+                            <td th:text="${factura.createAt}"></td>
+                            <td th:text="'$'+${factura.total}"></td>
+                            <td><a class="btn btn-primary btn-xs" th:href="@{/factura/ver/} + ${factura.id}" th:text="'Detalle'"></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <a th:href="@{/perfil}" class="btn btn-secondary float-end">Volver</a>
+            </div>
+        </div>
+    </div>
+
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

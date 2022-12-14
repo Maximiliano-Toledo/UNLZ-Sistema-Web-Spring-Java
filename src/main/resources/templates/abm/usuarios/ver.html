@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8" />
+    <title th:text="'Spring Boot: MVC+Thymeleaf+DataJPA' + ${titulo}"></title>
+
+</head>
+<body>
+
+    <header th:replace="layout/layout :: header"></header>
+
+    <div class="mt-5 pt-5">
+        <div class="card container ">
+            <div class="card-header" th:text="${titulo}"></div>
+            <div class="card-body">
+
+                <h4 class="card-title p-2">
+                    <a th:href="@{'/usuarios/listar'}" class="btn btn-light btn-xs">&laquo; Volver</a>
+
+                </h4>
+
+                <!--
+                <img th:if="${!#strings.isEmpty(cliente.foto)}" class="img-thumbnail rounded float-left" style="max-width: 25%;"
+                th:src="@{'/uploads/' + ${cliente.foto}}" th:alt="${cliente.foto}" />
+                -->
+
+
+                <ul class="list-group p-2">
+                    <li class="list-group-item" th:text="${usuario.nombre}"></li>
+                    <li class="list-group-item" th:text="${usuario.apellido}"></li>
+                    <li class="list-group-item" th:text="${usuario.email}"></li>
+                    <li class="list-group-item" th:text="${usuario.createAt}"></li>
+                </ul>
+
+                <h4 class="card-title p-2">
+                    <a class="btn btn-success fw-semibold" th:href="@{/factura/form/} + ${usuario.id}" th:text="'Crear Factura'"></a>
+                </h4>
+
+                <div th:if="${#lists.isEmpty(usuario.facturas)}" class="alert alert-info my-2 p-2" th:text="'No hay facturas asiganadas para el cliente ' + ${usuario.nombre} + ' ' + ${usuario.apellido}"></div>
+                <table class="table table-bordered table-striped my-4 p-3">
+                    <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Descripcion</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            <th>Ver</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="factura: ${usuario.facturas}">
+                            <td th:text="${factura.id}"></td>
+                            <td th:text="${factura.descripcion}"></td>
+                            <td th:text="${factura.createAt}"></td>
+                            <td th:text="${factura.total}"></td>
+                            <td><a class="btn btn-primary btn-xs" th:href="@{/factura/ver/} + ${factura.id}" th:text="'Detalle'"></a></td>
+                            <td><a class="btn btn-danger btn-xs" th:href="@{/factura/eliminar/} + ${factura.id}" th:text="'Eliminar'" onclick="return confirm('¿Estas  seguro que desea eliminar la factura?');"></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

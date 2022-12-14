@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titulo</title>
+</head>
+<body>
+
+    <header th:replace="layout/layout :: header"></header>
+
+    <div class="container py-5 my-5">
+
+        <div th:if="${articulos.isEmpty}" class="alert alert-info my-2 p-2 my-3" th:text="'Todavia no hay articulos en la tienda :( .'"></div>
+        <div th:if="${!articulos.isEmpty}" th:each="articulo : ${articulos}">
+        <div class="card mb-3  shadow p-2">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img th:if="${!#strings.isEmpty(articulo.foto)}" style="max-width: 75%;" th:src="@{'/uploads/' + ${articulo.foto}}" th:alt="${articulo.foto}" class="img-thumbnail rounded mx-auto d-block">
+              <img th:if="${#strings.isEmpty(articulo.foto)}" style="max-width: 75%;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019" alt="" class="img-thumbnail rounded mx-auto d-block">
+
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title float-end" th:text="${articulo.nombre}"> </h5>
+
+                <p class="card-text text-success float-start" th:text="'$'+${articulo.precio}+' - Stock: '+${articulo.stock}"></p>
+              </div>
+
+              <div class="card-body">
+                <p class="float-start text-black-50" th:text="${articulo.descripcion}"> </p>
+              </div>
+
+
+
+              <div class="card-body">
+                <a th:if="${articulo.stock != 0}" th:href="@{'/carro/agregar/'} + ${articulo.id}" class="btn btn-success fw-semibold float-end" sec:authorize="not hasRole('ROLE_ADMIN')">Añadir al carro</a>
+                <a th:if="${articulo.stock == 0}" class="btn btn-secondary fw-semibold float-end disabled" sec:authorize="not hasRole('ROLE_ADMIN')" disabled>No hay stock</a>
+                <a th:href="@{'/articulos/editar/'} + ${articulo.id}" class="btn btn-primary fw-semibold position-relative float-end" sec:authorize="hasRole('ROLE_ADMIN')">Editar Articulo</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <nav th:replace="layout/paginator-nav :: paginator">
+
+
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

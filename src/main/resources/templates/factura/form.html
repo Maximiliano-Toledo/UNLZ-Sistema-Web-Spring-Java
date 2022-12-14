@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <header th:replace="layout/layout :: header"></header>
+
+    <div class="container py-5 mt-5">
+        <div class="card bg-light">
+            <div class="card-header" th:text="${titulo}"></div>
+            <div class="card-body">
+                <h4 class="card-title"></h4>
+                <form th:action="@{/factura/form}" th:object="${factura}" method="post">
+
+                    <div class="form-group row p-1">
+                        <label for="" th:text="'Usuario Cliente'" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-6">
+                            <input th:value="${factura.usuario.nombre} + ' ' + ${factura.usuario.apellido}" class="form-control" disabled="disabled">
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label for="" th:text="'Descripcion'" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{descripcion}" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label for="" th:text="'Observacion'" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-6">
+                            <textarea type="text" th:field="*{observacion}" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label for="buscar_articulo" th:text="'Buscar Producto'" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-6">
+                            <input type="text" name="buscar_articulo" id="buscar_articulo" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <table th:replace="factura/plantilla-items :: itemsFactura"></table>
+
+                    <table class="table table-sm table-striped table-hover"
+                    id="cargarItemArticulos">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+
+                    <h5>Total: <span id="granTotal">0</span></h5>
+
+                    <div class="form-group row p-2">
+                        <div class="col-sm-6">
+                            <input type="submit" th:value="${titulo}" class="btn btn-secondary"/>
+                        </div>
+                    </div>
+
+
+                </form>
+
+                <table th:replace="factura/plantilla-items :: itemsFactura"></table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+
+    <script th:replace="factura/js/autocomplete_articulos :: javascript"></script>
+
+
+</body>
+</html>
+
+
+<!-- base
+    <header th:replace="layout/layout :: header"></header>
+
+    <div class="container py-4 mt-5">
+        <div class="card bg-light">
+            <div class="card-header" th:text="${titulo}"></div>
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+-->

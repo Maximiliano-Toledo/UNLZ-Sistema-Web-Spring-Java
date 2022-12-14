@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+   <header th:replace="layout/layout :: header"></header>
+
+    <div class="container py-4 mt-5">
+        <div class="card bg-light">
+            <div class="card-header text-bg-info fw-semibold" th:text="${titulo}"></div>
+            <div class="card-body ">
+                <span>
+                    Se ha enviado un mail de verificacion a tú correo electronico (<span th:text="${email}"></span>), <span class="fw-semibold">por favor verficalo para poder activar su cuenta.</span>
+                </span>
+            </div>
+            <div class="card-body">
+                    <a class="btn btn-secondary" th:href="@{/tienda}">Volver al inicio</a>
+            </div>
+        </div>
+    </div>
+
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+
+
+</body>
+</html>

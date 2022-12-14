@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head">
+    <title>Document</title>
+</head>
+<body>
+
+    <header th:replace="layout/layout :: header"></header>
+
+<div class="container d-flex p-4 justify-content-center align-items-center mt-5"></div>
+
+    <div class="container py-4 mt-5">
+        <div class="card bg-light">
+            <div class="card-header fw-bold" th:text="${titulo}">Registro</div>
+            <div class="card-body">
+                <form th:action="@{/registro/form}" method="post" th:object="${usuario}">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" for="nombre">Nombre: </label>
+                        <input id="nombre" class="form-control" th:field="*{nombre}" autofocus required type="text">
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+                                th:errors="*{nombre}"></small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" for="apellido">Apellido: </label>
+                        <input id="apellido" class="form-control" th:field="*{apellido}" autofocus required type="text">
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}"
+                                th:errors="*{apellido}"></small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" for="email">Email: </label>
+                        <input id="email" class="form-control" th:field="*{email}" autofocus required type="email">
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
+                                th:errors="*{email}"></small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" for="password">Contraseña: </label>
+                        <input id="password" class="form-control" th:field="*{password}" autofocus required type="password">
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}"
+                                th:errors="*{password}"></small>
+                    </div>
+
+                    <div class="">
+                        <button type="submit" class="btn btn-primary fw-semibold">Registrar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+            <span class="mb-3">Si estas registrado <a th:href="@{/login}">Inicia sesión aquí</a>.</span>
+            </div>
+        </div>
+    </div>
+
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

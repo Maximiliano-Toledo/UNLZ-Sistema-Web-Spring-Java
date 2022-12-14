@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <table th:fragment="itemsFactura" class="d-none">
+        <tbody id="plantillaItemsFactura">
+            <tr id="row_{ID}">
+                <td class="d-none"><input type="hidden" value='{ID}' id='{ID}' name="item_id[]"/></td>
+                <td>{ID}</td>
+                <td>{NOMBRE}</td>
+                <td>{PRECIO}</td>
+                <td><input type="number" value="1" name="cantidad[]"
+                    id="cantidad_{ID}" class="form-control col-sm-4" onchange="itemsHelper.calcularImporte({ID}, {PRECIO}, this.value);"/></td>
+                <td><span id="total_importe_{ID}">0</span></td>
+                <td><a href="#" class="btn btn-danger btn-xs" onclick="itemsHelper.eliminarLineaFactura({ID})">X</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+
+    <script th:replace="factura/js/autocomplete_articulos :: javascript"></script>
+
+</body>
+</html>
